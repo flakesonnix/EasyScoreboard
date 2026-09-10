@@ -57,11 +57,20 @@ jobs:
         run: nix build --accept-flake-config --option sandbox relaxed --impure --no-link --print-out-paths
         continue-on-error: true # Gradle Central fetch may be flaky; devShell build is primary
 
-      - name: Upload jar
+      - name: Upload jar (EasyScoreboard)
         uses: actions/upload-artifact@v4
         if: success()
         with:
-          name: template-plugin
+          name: EasyScoreboard-${{ github.sha }}
+          path: build/libs/easyscoreboard-*.jar
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Upload jar (all)
+        uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: easyscoreboard-all
           path: build/libs/*.jar
           if-no-files-found: warn
 
