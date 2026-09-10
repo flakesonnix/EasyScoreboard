@@ -35,6 +35,13 @@ dependencies {
     implementation("org.postgresql:postgresql:42.7.5")
     // slf4j needed by HikariCP (Paper provides it but include for shade)
     implementation("org.slf4j:slf4j-api:2.0.16")
+
+    // Tests — JUnit5 + MockK (Kotlin native where possible, JVM for Paper API mocks)
+    testImplementation("org.junit.jupiter:junit-jupiter:5.11.3")
+    testImplementation("io.mockk:mockk:1.13.12")
+    testImplementation("org.assertj:assertj-core:3.26.3")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.11.3")
+    testImplementation("io.papermc.paper:paper-api:$paperVersion")
 }
 
 java {
@@ -128,4 +135,8 @@ spotless {
         endWithNewline()
         leadingTabsToSpaces(2)
     }
+}
+
+tasks.test {
+    useJUnitPlatform()
 }
