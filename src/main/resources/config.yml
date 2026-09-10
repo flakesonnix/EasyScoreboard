@@ -1,0 +1,63 @@
+# EasyScoreboard — easy config + DB persistent (via PurrCore if present, else own HikariCP)
+language: en # en, de
+
+database:
+  type: sqlite
+  pool:
+    maximum-pool-size: 10
+    minimum-idle: 2
+    connection-timeout: 30000
+    idle-timeout: 600000
+    max-lifetime: 1800000
+  sqlite:
+    file: database.db # → plugins/EasyScoreboard/database.db (or PurrCore/database.db if shared)
+  mysql:
+    host: localhost
+    port: 3306
+    database: minecraft
+    user: root
+    password: "change_me"
+    params: "useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=utf8mb4&serverTimezone=UTC"
+  postgresql:
+    host: localhost
+    port: 5432
+    database: minecraft
+    user: postgres
+    password: "change_me"
+    params: "sslmode=disable"
+
+scoreboard:
+  enabled: true
+  update-interval-ticks: 20 # 1s
+  use-purrcore-db: true # if PurrCore present, share its pool
+  placeholderapi: true # if PlaceholderAPI present, parse placeholders
+  # You edit boards easily — title + lines support {player}, {online}, {ping}, {tps}, {world}, {health}, {level}, {money} (if Vault), + PlaceholderAPI
+  boards:
+    default:
+      permission: "" # empty = all
+      title: "&b&lEasyScoreboard"
+      lines:
+        - "&7&m-------------------"
+        - "&fPlayer: &e{player}"
+        - "&fOnline: &a{online}&7/&a{max_online}"
+        - "&fPing: &e{ping}ms"
+        - "&fWorld: &e{world}"
+        - "&7&m-------------------"
+        - "&eplay.example.net"
+      title-animation:
+        enabled: false
+        frames:
+          - "&b&lEasyScoreboard"
+          - "&a&lEasyScoreboard"
+        interval-ticks: 10
+    vip:
+      permission: "easyscoreboard.vip"
+      title: "&6&lVIP Board"
+      lines:
+        - "&7&m-------------------"
+        - "&6VIP &f{player}"
+        - "&fRank: &eVIP"
+        - "&fOnline: &a{online}"
+        - "&7&m-------------------"
+
+  # Per-player toggle is DB persistent (scoreboard_prefs), not config

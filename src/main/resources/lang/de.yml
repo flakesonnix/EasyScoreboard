@@ -1,0 +1,13 @@
+# EasyScoreboard — Deutsch
+prefix: "&b[EasyScoreboard] &r"
+enabled: "&aScoreboard aktiviert."
+disabled: "&cScoreboard deaktiviert."
+reloaded: "&aConfig neu geladen."
+no-permission: "&cKeine Berechtigung."
+only-players: "&cNur Spieler."
+board-set: "&aBoard gesetzt auf &e{board}&a."
+board-not-found: "&cBoard nicht gefunden: &e{board}"
+board-no-permission: "&cKeine Berechtigung für dieses Board."
+toggle-on: "&aScoreboard an."
+toggle-off: "&cScoreboard aus."
+usage: "&cNutzung: /scoreboard <toggle|on|off|reload|board> [Board]"

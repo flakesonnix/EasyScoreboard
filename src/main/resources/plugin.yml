@@ -1,0 +1,22 @@
+name: EasyScoreboard
+version: '1.0.0'
+main: com.easyscoreboard.EasyScoreboardPlugin
+api-version: '1.21'
+prefix: EasyScoreboard
+author: you
+description: Easy configurable scoreboard — per-player toggle, DB persistent, PlaceholderAPI-ready. Paper & Spigot.
+depend: [PurrCore]
+softdepend: [PlaceholderAPI]
+commands:
+  scoreboard:
+    description: Toggle or manage scoreboard
+    usage: /scoreboard [toggle|on|off|reload|board]
+    permission: easyscoreboard.use
+    aliases: [sb, esb]
+permissions:
+  easyscoreboard.use:
+    description: Use scoreboard
+    default: true
+  easyscoreboard.admin:
+    description: Admin reload etc
+    default: op
