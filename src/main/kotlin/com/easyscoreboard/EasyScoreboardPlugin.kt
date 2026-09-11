@@ -24,18 +24,16 @@ class EasyScoreboardPlugin :
     lateinit var i18n: I18n
         private set
 
-    // Optional PurrCore integration
-    private fun getPurrCoreDb(): Any? {
-        if (!config.getBoolean("scoreboard.use-purrcore-db", true)) return null
+    // Optional PurrCore integration — returns true if PurrCore DB is available
+    private fun hasPurrCore(): Boolean {
+        if (!config.getBoolean("scoreboard.use-purrcore-db", true)) return false
         return try {
             val cls = Class.forName("com.purrcore.PurrCorePlugin")
             val get = cls.getMethod("get")
-            val inst = get.invoke(null) as JavaPlugin
-            val field = cls.getDeclaredField("database")
-            field.isAccessible = true
-            field.get(inst)
+            val inst = get.invoke(null)
+            inst != null
         } catch (_: Exception) {
-            null
+            false
         }
     }
 
@@ -45,25 +43,18 @@ class EasyScoreboardPlugin :
         i18n = I18n(this)
         i18n.load()
 
-        // DB — try PurrCore first if enabled, else own
-        val purrDb = getPurrCoreDb()
-        if (purrDb != null) {
-            logger.info("Using PurrCore shared DB")
-            // still need our own tables, but use PurrCore's connection
-            // fallback: create own DB for our tables if PurrCore DB is used, we create tables via PurrCore's connection
-            database = Database(this) // keep own for migrate fallback, but use PurrCore's connection for prefs?
-            // Actually create own DB and migrate our tables; PurrCore DB is separate file, but we can share by using same file path if config same
+        // DB — create own Database, PurrCore sharing happens at config level
+        // (both plugins can use same database.type/sqlite.file/mysql.* config)
+        database = Database(this)
+        if (hasPurrCore()) {
+            logger.info("PurrCore detected — ensure both plugins use same DB config for pool sharing")
+        }
+        try {
             database.connect()
             database.migrate()
-        } else {
-            database = Database(this)
-            try {
-                database.connect()
-                database.migrate()
-            } catch (e: Exception) {
-                logger.severe("DB failed: ${e.message}")
-                e.printStackTrace()
-            }
+        } catch (e: Exception) {
+            logger.severe("DB failed: ${e.message}")
+            e.printStackTrace()
         }
 
         prefsRepo = ScoreboardPrefsRepository(database, logger)
@@ -81,7 +72,7 @@ class EasyScoreboardPlugin :
         // start for online players (reload)
         server.onlinePlayers.forEach { scoreboardService.start(it) }
 
-        logger.info("EasyScoreboard enabled — easy config + DB (PurrCore=${purrDb != null}) — Paper & Spigot")
+        logger.info("EasyScoreboard enabled — easy config + DB (PurrCore=${hasPurrCore()}) — Paper & Spigot")
     }
 
     override fun onDisable() {
