@@ -35,29 +35,37 @@ scoreboard:
   boards:
     default:
       permission: "" # empty = all
-      title: "&b&lEasyScoreboard"
+      title: "&b&l⚔ MINECRAFT &7&l⚔"
       lines:
-        - "&7&m-------------------"
-        - "&fPlayer: &e{player}"
-        - "&fOnline: &a{online}&7/&a{max_online}"
-        - "&fPing: &e{ping}ms"
-        - "&fWorld: &e{world}"
-        - "&7&m-------------------"
-        - "&eplay.example.net"
+        - "&8&m━━━━━━━━━━━━━━━━━━━"
+        - ""
+        - " &f👤 Player: &e{player}"
+        - " &f🌐 Online: &a{online}&7/&a{max_online}"
+        - " &f📡 Ping: &e{ping}ms"
+        - " &f🌍 World: &e{world}"
+        - ""
+        - "&8&m━━━━━━━━━━━━━━━━━━━"
+        - " &6⭐ &eplay.example.net"
       title-animation:
-        enabled: false
+        enabled: true
         frames:
-          - "&b&lEasyScoreboard"
-          - "&a&lEasyScoreboard"
+          - "&b&l⚔ MINECRAFT &7&l⚔"
+          - "&3&l⚔ MINECRAFT &8&l⚔"
+          - "&9&l⚔ MINECRAFT &7&l⚔"
         interval-ticks: 10
     vip:
       permission: "easyscoreboard.vip"
-      title: "&6&lVIP Board"
+      title: "&6&l★ VIP LOUNGE ★"
       lines:
-        - "&7&m-------------------"
-        - "&6VIP &f{player}"
-        - "&fRank: &eVIP"
-        - "&fOnline: &a{online}"
-        - "&7&m-------------------"
+        - "&8&m━━━━━━━━━━━━━━━━━━━"
+        - ""
+        - " &6✦ VIP &f{player}"
+        - " &f👑 Rank: &6VIP"
+        - " &f🌐 Online: &a{online}"
+        - " &f📡 Ping: &e{ping}ms"
+        - " &f💚 Health: &c{health}&7/&c20"
+        - ""
+        - "&8&m━━━━━━━━━━━━━━━━━━━"
+        - " &6⭐ &evip.example.net"
 
   # Per-player toggle is DB persistent (scoreboard_prefs), not config
