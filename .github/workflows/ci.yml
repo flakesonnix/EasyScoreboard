@@ -38,6 +38,10 @@ jobs:
         with:
           cache-read-only: false
 
+      - name: Run tests
+        run: nix develop --accept-flake-config --command gradle test --no-daemon
+        continue-on-error: true
+
       - name: Nix flake check
         run: nix flake check --accept-flake-config
 

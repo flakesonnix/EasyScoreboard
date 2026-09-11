@@ -5,8 +5,6 @@ import com.easyscoreboard.db.ScoreboardPrefsRepository
 import io.mockk.every
 import io.mockk.mockk
 import java.io.File
-import org.bukkit.Bukkit
-import org.bukkit.Server
 import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.plugin.java.JavaPlugin
 import org.junit.jupiter.api.Assertions.assertDoesNotThrow
