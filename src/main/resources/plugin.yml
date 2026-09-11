@@ -5,8 +5,7 @@ api-version: '1.21'
 prefix: EasyScoreboard
 author: you
 description: Easy configurable scoreboard — per-player toggle, DB persistent, PlaceholderAPI-ready. Paper & Spigot.
-depend: [PurrCore]
-softdepend: [PlaceholderAPI]
+softdepend: [PurrCore, PlaceholderAPI]
 commands:
   scoreboard:
     description: Toggle or manage scoreboard
